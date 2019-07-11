@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Menu, Container, Button } from "semantic-ui-react";
 import { NavLink, Link, withRouter } from "react-router-dom";
@@ -42,18 +42,22 @@ class NavBar extends Component {
             Re-vents
           </Menu.Item>
           <Menu.Item exact name='Events' as={NavLink} to='/events' />
-          <Menu.Item name='People' as={NavLink} to='/people' />
-          <Menu.Item name='Test' as={NavLink} to='/test' />
-          <Menu.Item>
-            <Button
-              as={Link}
-              to='/event/create'
-              floated='right'
-              positive
-              inverted
-              content='Create Event'
-            />
-          </Menu.Item>
+          {auth.authenticated && (
+            <Fragment>
+              <Menu.Item name='People' as={NavLink} to='/people' />
+              <Menu.Item name='Test' as={NavLink} to='/test' />
+              <Menu.Item>
+                <Button
+                  as={Link}
+                  to='/event/create'
+                  floated='right'
+                  positive
+                  inverted
+                  content='Create Event'
+                />
+              </Menu.Item>
+            </Fragment>
+          )}
           {auth.authenticated ? (
             <SignedInMenu handleSignOut={this.handleSignOut} currentUser={auth.currentUser} />
           ) : (

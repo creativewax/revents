@@ -7,9 +7,12 @@ import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
 import { configureStore } from "./app/store/configureStore";
 import ScrollToTop from "./app/common/utils/ScrollToTop";
+import { loadEvents } from "./features/event/eventActions";
 
 // reux data store
 const store = configureStore();
+store.dispatch(loadEvents());
+
 console.log("default data in store", store.getState());
 
 ReactDOM.render(

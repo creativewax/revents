@@ -2,14 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Grid } from "semantic-ui-react";
 import EventList from "../list/EventList";
-import { createEvent, updateEvent, deleteEvent } from "./../eventActions";
+import { createEvent, updateEvent, deleteEvent, FETCH_EVENTS } from "./../eventActions";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 // map redux store data
-const mapStateToProps = (state, ownProps) => {
-  let events = state.events;
-
-  return { events };
-};
+const mapStateToProps = state => ({
+  events: state.events,
+  loading: state.async.loading,
+  loadingName: state.async.elementName
+});
 
 // map redux actions
 const actions = {
@@ -24,7 +25,9 @@ class EventDashboard extends Component {
   };
 
   render() {
-    const { events } = this.props;
+    const { events, loading, loadingName } = this.props;
+
+    if (loadingName === FETCH_EVENTS && loading) return <LoadingComponent />
 
     return (
       <Grid>
