@@ -1,6 +1,6 @@
 import { closeModal } from "../modals/modalActions";
 import { delay } from "q";
-import { asyncActionStart, asyncActionFinished } from "../async/asyncActions";
+import { asyncActionFinished, ASYNC_ACTION_START } from "../async/asyncActions";
 
 /*
  * action types
@@ -13,7 +13,7 @@ export const SIGN_OUT_USER = "SIGN_OUT_USER";
  * action creators
  */
 
-export const login = (creds) => {
+export const login = creds => {
   return async dispatch => {
     dispatch({
       type: LOGIN_USER,
@@ -21,12 +21,12 @@ export const login = (creds) => {
         creds
       }
     });
-    dispatch(asyncActionStart());
-    await delay(1000)
+    dispatch({ type: ASYNC_ACTION_START, payload: LOGIN_USER });
+    await delay(1000);
     dispatch(asyncActionFinished());
     dispatch(closeModal());
   };
-}
+};
 
 export function logout() {
   return {

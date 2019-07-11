@@ -1,10 +1,6 @@
-import {
-  asyncActionStart,
-  asyncActionFinished,
-  asyncActionError,
-  ASYNC_ACTION_START
-} from "../async/asyncActions";
+import { asyncActionFinished, asyncActionError, ASYNC_ACTION_START } from "../async/asyncActions";
 import { fetchSampleData } from "../../app/data/mockApi";
+import { toastr } from "react-redux-toastr";
 
 /*
  * action types
@@ -20,19 +16,33 @@ export const FETCH_EVENTS = "FETCH_EVENTS";
  */
 
 export function createEvent(event) {
-  return {
-    type: CREATE_EVENT,
-    payload: {
-      event
+  return async dispatch => {
+    try {
+      dispatch({
+        type: CREATE_EVENT,
+        payload: {
+          event
+        }
+      });
+      toastr.success("Success!", "Event has been created");
+    } catch (error) {
+      toastr.error("Oops!", "Something went wrong when trying to create a new event");
     }
   };
 }
 
 export function updateEvent(event) {
-  return {
-    type: UPDATE_EVENT,
-    payload: {
-      event
+  return async dispatch => {
+    try {
+      dispatch({
+        type: UPDATE_EVENT,
+        payload: {
+          event
+        }
+      });
+      toastr.success("Success!", "Event has been updated");
+    } catch (error) {
+      toastr.error("Oops!", "Something went wrong when trying to update a new event");
     }
   };
 }

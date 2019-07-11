@@ -8,6 +8,8 @@ import { BrowserRouter } from "react-router-dom";
 import { configureStore } from "./app/store/configureStore";
 import ScrollToTop from "./app/common/utils/ScrollToTop";
 import { loadEvents } from "./features/event/eventActions";
+import ReduxToastr from "react-redux-toastr";
+import "react-redux-toastr/lib/css/react-redux-toastr.min.css";
 
 // reux data store
 const store = configureStore();
@@ -19,6 +21,7 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <ScrollToTop>
+        <ReduxToastr position='bottom-right' transitionIn='fadeIn' transitionOut='fadeOut' />
         <App />
       </ScrollToTop>
     </BrowserRouter>

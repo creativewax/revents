@@ -66,6 +66,9 @@ class EventForm extends Component {
     // append to values
     values.venueLatLng = this.state.venueLatLng;
 
+    // convert the date to an iso format else it won't work with date-fns
+    values.date = new Date(values.date).toISOString();
+
     if (this.props.initialValues.id) {
       // update existing event
       this.props.updateEvent(values);
@@ -158,7 +161,7 @@ class EventForm extends Component {
               <Field
                 name='date'
                 component={DateInput}
-                dateFormat='dd LLL yyyy hh:mm'
+                dateFormat='dd LLL yyyy h:mm a'
                 showTimeSelect
                 timeFormat='HH:mm'
                 placeholder='Event Date'
